@@ -12,7 +12,8 @@ object Application extends Controller {
   implicit val personFormat = Json.format[User]
 
   def index = Action {
-    Ok(views.html.index("Your new application is ready."))
+    Ok("index")
+    //Ok(views.html.index("Your new application is ready."))
   }
 
   /**

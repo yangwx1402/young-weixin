@@ -6,7 +6,7 @@
 GET     /                           controllers.Application.index
 
 GET     /user/:id                   controllers.Application.getUser(id:Int)
-#带默认值的参数
+
 GET     /user/name/                  controllers.Application.getName(name:String?="yy")
 
 GET     /user/version/               controllers.Application.getVersion(version:String)
