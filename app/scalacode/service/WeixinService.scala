@@ -3,14 +3,19 @@ package scalacode.service
 import java.io.StringReader
 import javacode.util.xml.JdomUtils
 
-import scalacode.entity.WeixinConstants
+import scalacode.entity.{WeixinConfigFactory, CheckDevelopMessage, WeixinConstants}
+import scalacode.util.CheckUtils
 
 /**
  * Created by Administrator on 2016/2/20.
  */
-class WeixinService {
+class WeixinService extends BaseSerivce{
 
   val jdom = new JdomUtils
+
+  def checkToken(checkDevelopMessage: CheckDevelopMessage): Boolean ={
+    CheckUtils.checkSignature(WeixinConfigFactory.weixinConfig.appInfo.token,checkDevelopMessage)
+  }
 
   def processWeixinMessage(xmlContent: String): Unit = {
     val root = jdom.getRootElement(new StringReader(xmlContent))

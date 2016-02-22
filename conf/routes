@@ -3,13 +3,17 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
-
-GET     /user/:id                   controllers.Application.getUser(id:Int)
-
-GET     /user/name/                  controllers.Application.getName(name:String?="yy")
-
-GET     /user/version/               controllers.Application.getVersion(version:String)
+#GET     /                           controllers.Application.index
+#
+#GET     /user/:id                   controllers.Application.getUser(id:Int)
+#
+#GET     /user/name/                  controllers.Application.getName(name:String?="yy")
+#
+#GET     /user/version/               controllers.Application.getVersion(version:String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+GET     /weixin/message             controllers.WeixinMessageController.checkToken(signature:String,timestamp:String,nonce:String,echostr:String)
+
+POST    /weixin/message             controllers.WeixinMessageController.processWeixinMessage
