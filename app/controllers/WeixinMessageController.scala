@@ -27,6 +27,6 @@ object WeixinMessageController extends Controller {
     val xmlContent = if(request.body.isEmpty) "" else request.body
     Logger.info("receive weixin Server content=[  " + xmlContent + "   ]")
     weixinService.processWeixinMessage(xmlContent)
-    Ok("")
+    Ok("success")
   }
 }
