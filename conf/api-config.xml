@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <weixin>
     <appInfo>
-        <appID>wx70abe36102a0b56a</appID>
-        <appsecret>89a7c7824e44d5c761a06c4ee39ec299</appsecret>
-        <token>yangyong</token>
+        <appID>wx907ca036b2198b3c</appID>
+        <appsecret>d322899d1aaf6fdc23791f559797c96e</appsecret>
+        <token>zlt</token>
     </appInfo>
     <processConfig>
         <process msgType="event" desc="处理用户关注事件">
