@@ -41,9 +41,9 @@ import scala.beans.BeanProperty
 class NormalMessage {
   @BeanProperty var ToUserName: String = ""
   @BeanProperty var FromUserName: String = ""
-  @BeanProperty var CreateTime: Long = 0
+  @BeanProperty var CreateTime: String = ""
   @BeanProperty var MsgType: String = ""
-  @BeanProperty var MsgId: Long = 0
+  @BeanProperty var MsgId: String = ""
 }
 
 /**
