@@ -1,7 +1,7 @@
 package scalacode.util
 
 import java.util
-import javacode.util.CodecUtils
+import javacode.util.codec.CodecUtils
 
 import org.apache.commons.lang3.ArrayUtils
 import play.api.Logger

@@ -1,4 +1,4 @@
-package javacode.util;
+package javacode.util.codec;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
