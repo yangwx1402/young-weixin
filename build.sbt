@@ -11,7 +11,7 @@ libraryDependencies ++= {
     jdbc,
     anorm,
     cache,
-    "mysql" % "mysql-connector-java" % mysql_driver_version,
+    "org.mariadb.jdbc" % "mariadb-java-client" % "1.3.6",
     "org.apache.httpcomponents" % "httpclient" % http_client_version,
     "org.apache.httpcomponents" % "httpcore" % http_client_version,
     "org.apache.httpcomponents" % "httpmime" % http_client_version,
