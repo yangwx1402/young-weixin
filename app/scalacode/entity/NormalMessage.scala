@@ -37,7 +37,9 @@ import scala.beans.BeanProperty
 //  @BeanProperty var Url:String =""
 //
 //}
-
+/**
+ * 微信消息基类
+ */
 class NormalMessage {
   @BeanProperty var ToUserName: String = ""
   @BeanProperty var FromUserName: String = ""
