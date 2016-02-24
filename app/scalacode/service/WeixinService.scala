@@ -23,6 +23,7 @@ class WeixinService extends BaseSerivce {
    * @param subscribeEvent
    */
   private def processSubscribeEvent(subscribeEvent: SubscribeEvent): Unit = {
+    Logger.info("user subscribe event = "+subscribeEvent)
     val flag = EventProcessDao.subscribeUserExist(subscribeEvent.FromUserName)
     if (flag) {
       EventProcessDao.updateSubscribeUser(subscribeEvent)

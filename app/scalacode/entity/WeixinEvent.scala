@@ -14,12 +14,20 @@ class WeixinEvent{
   @BeanProperty var CreateTime:String = ""
   @BeanProperty var MsgType:String = ""
   @BeanProperty var Event:String = ""
+
+  override def toString():String={
+    "ToUserName="+ToUserName+",FromUserName="+FromUserName+",CreateTime="+CreateTime+",MsgType="+MsgType+",Event="+Event
+  }
 }
 
 @XStreamAlias("xml")
 class SubscribeEvent extends WeixinEvent{
   @BeanProperty var EventKey:String = ""
   @BeanProperty var Ticket:String = ""
+
+  override def toString():String={
+    super.toString()+",EventKey="+EventKey+",Ticket="+Ticket
+  }
 }
 
 

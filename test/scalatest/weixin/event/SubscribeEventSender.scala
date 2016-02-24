@@ -16,7 +16,7 @@ object SubscribeEventSender extends BaseTest{
     event.EventKey = "eventKey"
     event.Event = "unsubscribe"
     event.Ticket = "ticket"
-    event.FromUserName = "fromUserName"
+    event.FromUserName = "oGDhoxAIC7rBZiFr8YpF0gww6L0c"
     event.ToUserName = "toUserName"
     event.MsgType = "event"
     val url = "http://localhost/weixin/message"

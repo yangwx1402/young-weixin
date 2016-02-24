@@ -43,7 +43,7 @@ object EventProcessDao {
   def updateSubscribeUser(subscribeEvent: SubscribeEvent): Unit = {
     DB.withConnection {
       connection =>
-        val sql = "update weixin_subscribe_info set status=? and updatetime=? where username =?"
+        val sql = "update weixin_subscribe_info set status=? , updatetime=? where username =?"
         Logger.info("sql --["+sql+"]")
         val ps = connection.prepareStatement(sql)
         ps.setString(1, subscribeEvent.Event)
