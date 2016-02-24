@@ -3,6 +3,7 @@ package scalacode.dao
 import java.util.Date
 import javacode.util.date.DateUtils
 
+import play.Logger
 import play.api.db.DB
 import play.api.Play.current
 import scalacode.entity.SubscribeEvent
@@ -17,6 +18,7 @@ object EventProcessDao {
   def saveUserSubscribe(subscribeEvent: SubscribeEvent): Unit = {
     DB.withConnection { connection =>
       val sql = "insert into weixin_subscribe_info(username,status,createtime,updatetime) values (?,?,?,?)"
+      Logger.info("sql --["+sql+"]")
       val ps = connection.prepareStatement(sql)
       ps.setString(1, subscribeEvent.FromUserName)
       ps.setString(2, subscribeEvent.Event)
@@ -30,6 +32,7 @@ object EventProcessDao {
   def subscribeUserExist(username: String): Boolean = {
     DB.withConnection { connection =>
       val sql = "select * from weixin_subscribe_info where username = ?)"
+      Logger.info("sql --["+sql+"]")
       val ps = connection.prepareStatement(sql)
       ps.setString(1, username)
       val rs = ps.executeQuery()
@@ -40,7 +43,8 @@ object EventProcessDao {
   def updateSubscribeUser(subscribeEvent: SubscribeEvent): Unit = {
     DB.withConnection {
       connection =>
-        val sql = "update weixin_subscribe_info set status=? and updatetime=? where username = ?"
+        val sql = "update weixin_subscribe_info set status=? and updatetime=? where username =?"
+        Logger.info("sql --["+sql+"]")
         val ps = connection.prepareStatement(sql)
         ps.setString(1, subscribeEvent.Event)
         ps.setString(2, DateUtils.getDateString(defaultDateFormat, new Date()))
