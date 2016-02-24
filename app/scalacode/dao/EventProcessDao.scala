@@ -31,7 +31,7 @@ object EventProcessDao {
 
   def subscribeUserExist(username: String): Boolean = {
     DB.withConnection { connection =>
-      val sql = "select * from weixin_subscribe_info where username = ?)"
+      val sql = "select * from weixin_subscribe_info where username = ?"
       Logger.info("sql --["+sql+"]")
       val ps = connection.prepareStatement(sql)
       ps.setString(1, username)
