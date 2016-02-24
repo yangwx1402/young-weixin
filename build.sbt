@@ -20,8 +20,7 @@ libraryDependencies ++= {
     "org.codehaus.jackson" % "jackson-core-asl" % jackson_version,
     "commons-io" % "commons-io" % "2.4",
     "org.jdom" % "jdom" % "2.0.2",
-    "commons-codec" % "commons-codec" % "1.10",
-    "com.typesafe.play" %% "play-slick" % "1.1.1"
+    "commons-codec" % "commons-codec" % "1.10"
   )
 }
 

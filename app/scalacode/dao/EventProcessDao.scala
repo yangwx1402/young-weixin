@@ -4,7 +4,7 @@ import java.util.Date
 import javacode.util.date.DateUtils
 
 import play.api.db.DB
-
+import play.api.Play.current
 import scalacode.entity.SubscribeEvent
 
 /**
