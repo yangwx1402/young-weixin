@@ -4,7 +4,7 @@ import play.api.Logger
 import play.api.mvc.{Action, Controller}
 
 import scalacode.entity.CheckDevelopMessage
-import scalacode.service.WeixinService
+import scalacode.service.WeixinDispatcherService
 import scalacode.util.CheckUtils
 
 /**
@@ -12,7 +12,7 @@ import scalacode.util.CheckUtils
  */
 object WeixinMessageController extends Controller {
 
-  val weixinService = new WeixinService
+  val weixinService = new WeixinDispatcherService
 
   def checkToken(signature: String, timestamp: String, nonce: String, echostr: String) = Action {
     Logger.info("receive weixin server pamameter signature=" + signature + ",timestamp=" + timestamp + ",nonce=" + nonce + ",echostr=" + echostr)

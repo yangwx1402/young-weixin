@@ -46,6 +46,10 @@ class NormalMessage {
   @BeanProperty var CreateTime: String = ""
   @BeanProperty var MsgType: String = ""
   @BeanProperty var MsgId: String = ""
+
+  override def toString():String={
+    "ToUserName="+ToUserName+",FromUserName="+FromUserName+",CreateTime="+CreateTime+",MsgType="+MsgType+",MsgId="+MsgId
+  }
 }
 
 /**
@@ -54,6 +58,9 @@ class NormalMessage {
 class TextMessage extends NormalMessage {
   @BeanProperty var Content: String = ""
 
+  override def toString():String = {
+    super.toString()+",Content="+Content
+  }
 }
 
 /**
@@ -62,6 +69,9 @@ class TextMessage extends NormalMessage {
 class ImageMessage extends NormalMessage {
   @BeanProperty var PicUrl: String = ""
   @BeanProperty var MediaId: String = ""
+  override def toString():String = {
+    super.toString()+",PicUrl="+PicUrl+",MediaId="+MediaId
+  }
 }
 
 /**
@@ -70,6 +80,9 @@ class ImageMessage extends NormalMessage {
 class VoiceMessage extends NormalMessage {
   @BeanProperty var MediaId: String = ""
   @BeanProperty var Format: String = ""
+  override def toString():String = {
+    super.toString()+",MediaId="+MediaId+",Format="+Format
+  }
 }
 
 /**
@@ -78,6 +91,9 @@ class VoiceMessage extends NormalMessage {
 class VideoMessage extends NormalMessage {
   @BeanProperty var MediaId: String = ""
   @BeanProperty var ThumbMediaId: String = ""
+  override def toString():String = {
+    super.toString()+",MediaId="+MediaId+",ThumbMediaId="+ThumbMediaId
+  }
 }
 
 /**
@@ -88,6 +104,10 @@ class PositionMessage extends NormalMessage {
   @BeanProperty var Location_Y: String = ""
   @BeanProperty var Scale: String = ""
   @BeanProperty var Label: String = ""
+
+  override def toString():String = {
+    super.toString()+",Location_X="+Location_X+",Location_Y="+Location_Y+",Scale="+Scale+",Label="+Label
+  }
 }
 
 /**
@@ -97,4 +117,8 @@ class LinkMessage extends NormalMessage{
   @BeanProperty var Title:String =""
   @BeanProperty var Description:String = ""
   @BeanProperty var Url:String =""
+
+  override def toString():String = {
+    super.toString()+",Title="+Title+",Description="+Description+",Url="+Url
+  }
 }

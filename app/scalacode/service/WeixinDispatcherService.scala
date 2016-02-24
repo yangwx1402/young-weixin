@@ -5,6 +5,7 @@ import javacode.util.xml.JdomUtils
 
 import play.Logger
 
+import scala.collection.mutable
 import scalacode.dao.EventProcessDao
 import scalacode.entity._
 import scalacode.util.CheckUtils
@@ -12,24 +13,40 @@ import scalacode.util.CheckUtils
 /**
  * Created by Administrator on 2016/2/20.
  */
-class WeixinService extends BaseSerivce {
+class WeixinDispatcherService extends BaseSerivce {
 
-  def checkToken(checkDevelopMessage: CheckDevelopMessage): Boolean = {
-    CheckUtils.checkSignature(WeixinConfigFactory.weixinConfig.appInfo.token, checkDevelopMessage)
+  val messageService = new WeixinMessageService
+
+  val eventService = new WeixinEventService
+
+  val apiConfig = WeixinConfigFactory.weixinConfig
+
+  val dispatcherCache = new mutable.HashMap[String, mutable.HashMap[String, TodoConfig]]()
+
+  private def initDispatcherCache(): Unit = {
+    var key = ""
+    for (process <- apiConfig.processConfig.process) {
+      key = key + process.getMsgType
+      val todos = process.todoConfig
+      if (todos != null && todos.length > 0) {
+        val tempMap = new mutable.HashMap[String, TodoConfig]();
+        for (todo <- todos) {
+          tempMap.put(todo.conditionValue, todo)
+        }
+        dispatcherCache.put(key, tempMap)
+      }
+    }
+    Logger.info("dispatcherCache = " + dispatcherCache)
   }
 
-  /**
-   * 处理用户关注和取消关注事件
-   * @param subscribeEvent
-   */
-  private def processSubscribeEvent(subscribeEvent: SubscribeEvent): Unit = {
-    Logger.info("user subscribe event = "+subscribeEvent)
-    val flag = EventProcessDao.subscribeUserExist(subscribeEvent.FromUserName)
-    if (flag) {
-      EventProcessDao.updateSubscribeUser(subscribeEvent)
-    } else {
-      EventProcessDao.saveUserSubscribe(subscribeEvent)
-    }
+  if (apiConfig.getProcessConfig != null && apiConfig.processConfig.process != null && apiConfig.processConfig.process.length > 0) {
+    initDispatcherCache()
+  }
+
+
+  def dispatchMessage(xmlContent: String): Unit = {
+    val root = jdom.getRootElement(new StringReader(xmlContent))
+
   }
 
   /**
@@ -40,6 +57,7 @@ class WeixinService extends BaseSerivce {
     val root = jdom.getRootElement(new StringReader(xmlContent))
     val msgType = jdom.selectField(root, WeixinConstants.MSG_TYPE_NAME)
     Logger.info("processWeixinMessage msgType=" + msgType)
+
     /**
      * 处理接收到的事件请求
      */
@@ -50,12 +68,12 @@ class WeixinService extends BaseSerivce {
       if (WeixinConstants.MSG_TYPE_EVENT_SUBSCRIBE.equals(eventType)) {
         val event = jdom.selectFields(root, classOf[SubscribeEvent])
         Logger.info("receive a user subscribe message = " + event)
-        processSubscribeEvent(event)
+        eventService.processSubscribeEvent(event)
         //用户取消关注
       } else if (WeixinConstants.MSG_TYPE_EVENT_UNSUBSCRIBE.equals(eventType)) {
         val event = jdom.selectFields(root, classOf[SubscribeEvent])
         Logger.info("receive a user unsubscribe message = " + event)
-        processSubscribeEvent(event)
+        eventService.processSubscribeEvent(event)
       }
       //接收文本消息
       /**
