@@ -9,4 +9,9 @@ public class ClassUtils {
     public static Method getMethod(String methodName,Class clazz,Class... parameterClass) throws NoSuchMethodException {
         return clazz.getMethod(methodName,parameterClass);
     }
+
+
+    public static String getMethodName(String field) {
+        return "set" + field.substring(0, 1).toUpperCase() + field.substring(1, field.length());
+    }
 }

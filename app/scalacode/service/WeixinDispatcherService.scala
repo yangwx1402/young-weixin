@@ -1,8 +1,10 @@
 package scalacode.service
 
 import java.io.StringReader
+import javacode.util.clazz.ClassUtils
 import javacode.util.xml.JdomUtils
 
+import org.jdom2.Element
 import play.Logger
 
 import scala.collection.mutable
@@ -15,13 +17,9 @@ import scalacode.util.CheckUtils
  */
 class WeixinDispatcherService extends BaseSerivce {
 
-  val messageService = new WeixinMessageService
+  private val apiConfig = WeixinConfigFactory.weixinConfig
 
-  val eventService = new WeixinEventService
-
-  val apiConfig = WeixinConfigFactory.weixinConfig
-
-  val dispatcherCache = new mutable.HashMap[String, mutable.HashMap[String, TodoConfig]]()
+  private val dispatcherCache = new mutable.HashMap[String, mutable.HashMap[String, TodoConfig]]()
 
   private def initDispatcherCache(): Unit = {
     var key = ""
@@ -44,44 +42,75 @@ class WeixinDispatcherService extends BaseSerivce {
   }
 
 
-  def dispatchMessage(xmlContent: String): Unit = {
-    val root = jdom.getRootElement(new StringReader(xmlContent))
-
+  private def findTodo(root: Element, todoMap: mutable.HashMap[String, TodoConfig]): TodoConfig = {
+    val todo = todoMap.find(p => p._1.equals(jdom.selectField(root, p._2.getConditionField)))
+    if (todo != None)
+      todo.get._2
+    else
+      null
   }
 
-  /**
-   * 处理微信post到服务端的请求信息
-   * @param xmlContent
-   */
-  def processWeixinMessage(xmlContent: String): Unit = {
+
+  private def matchTodoConfig(root: Element, msgType: String): TodoConfig = {
+    if (dispatcherCache.contains(msgType)) {
+      val todoMap = dispatcherCache.get(msgType).get
+      findTodo(root, todoMap)
+    } else {
+      null
+    }
+  }
+
+  private def processTodo(root: Element, todoConfig: TodoConfig) = {
+    Logger.info("processTodo ----todoConfig = "+todoConfig)
+    if (todoConfig != null) {
+      val className = todoConfig.getEntityClass
+      val entity = jdom.selectFields(root, Class.forName(className))
+      Logger.info("parser entity is ="+entity)
+      val clazz = Class.forName(todoConfig.getProcessClass)
+      val method = ClassUtils.getMethod(todoConfig.getProcessMethod, clazz, Class.forName(className))
+      method.invoke(clazz.newInstance(), entity)
+    }
+  }
+
+  def dispatchMessage(xmlContent: String): Unit = {
     val root = jdom.getRootElement(new StringReader(xmlContent))
     val msgType = jdom.selectField(root, WeixinConstants.MSG_TYPE_NAME)
     Logger.info("processWeixinMessage msgType=" + msgType)
-
-    /**
-     * 处理接收到的事件请求
-     */
-    if (WeixinConstants.MSG_TYPE_EVENT.equals(msgType)) {
-      val eventType = jdom.selectField(root, WeixinConstants.MSG_EVENT_NAME)
-      Logger.info("processWeixinMessage eventType=" + eventType)
-      //用户关注
-      if (WeixinConstants.MSG_TYPE_EVENT_SUBSCRIBE.equals(eventType)) {
-        val event = jdom.selectFields(root, classOf[SubscribeEvent])
-        Logger.info("receive a user subscribe message = " + event)
-        eventService.processSubscribeEvent(event)
-        //用户取消关注
-      } else if (WeixinConstants.MSG_TYPE_EVENT_UNSUBSCRIBE.equals(eventType)) {
-        val event = jdom.selectFields(root, classOf[SubscribeEvent])
-        Logger.info("receive a user unsubscribe message = " + event)
-        eventService.processSubscribeEvent(event)
-      }
-      //接收文本消息
-      /**
-       * 处理接收到的文本消息
-       */
-    } else if (WeixinConstants.MSG_TYPE_TEXT.equals(msgType)) {
-      val text = jdom.selectFields(root, classOf[TextMessage])
-      Logger.info("receive a text message = " + text)
+    val todoConfig = matchTodoConfig(root, msgType)
+    if (todoConfig != null) {
+      processTodo(root, todoConfig)
     }
   }
+
+  //  def processWeixinMessage(xmlContent: String): Unit = {
+  //    val root = jdom.getRootElement(new StringReader(xmlContent))
+  //    val msgType = jdom.selectField(root, WeixinConstants.MSG_TYPE_NAME)
+  //    Logger.info("processWeixinMessage msgType=" + msgType)
+  //
+  //    /**
+  //     * 处理接收到的事件请求
+  //     */
+  //    if (WeixinConstants.MSG_TYPE_EVENT.equals(msgType)) {
+  //      val eventType = jdom.selectField(root, WeixinConstants.MSG_EVENT_NAME)
+  //      Logger.info("processWeixinMessage eventType=" + eventType)
+  //      //用户关注
+  //      if (WeixinConstants.MSG_TYPE_EVENT_SUBSCRIBE.equals(eventType)) {
+  //        val event = jdom.selectFields(root, classOf[SubscribeEvent])
+  //        Logger.info("receive a user subscribe message = " + event)
+  //        eventService.processSubscribeEvent(event)
+  //        //用户取消关注
+  //      } else if (WeixinConstants.MSG_TYPE_EVENT_UNSUBSCRIBE.equals(eventType)) {
+  //        val event = jdom.selectFields(root, classOf[SubscribeEvent])
+  //        Logger.info("receive a user unsubscribe message = " + event)
+  //        eventService.processSubscribeEvent(event)
+  //      }
+  //      //接收文本消息
+  //      /**
+  //       * 处理接收到的文本消息
+  //       */
+  //    } else if (WeixinConstants.MSG_TYPE_TEXT.equals(msgType)) {
+  //      val text = jdom.selectFields(root, classOf[TextMessage])
+  //      Logger.info("receive a text message = " + text)
+  //    }
+  //  }
 }
