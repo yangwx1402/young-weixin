@@ -10,7 +10,7 @@ import scalacode.entity._
  */
 trait BaseTest {
 
-  val xml = new XStreamUtils(Array(classOf[WeixinConfig], classOf[WeixinAppInfo], classOf[TodoConfig], classOf[ProcessConfig], classOf[Process], classOf[Condition]))
+  val xml = new XStreamUtils(Array(classOf[WeixinConfig], classOf[WeixinAppInfo], classOf[TodoConfig], classOf[ProcessConfig], classOf[Process]))
 
   val configFile = "/api-config.xml"
 

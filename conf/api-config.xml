@@ -22,5 +22,6 @@
                 <processMethod>processSubscribeEvent</processMethod>
             </todoConfig>
         </process>
+
     </processConfig>
 </weixin>

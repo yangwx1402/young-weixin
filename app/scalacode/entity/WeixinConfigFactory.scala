@@ -10,10 +10,10 @@ import play.Logger
  */
 object WeixinConfigFactory {
 
-  private val stream = new XStreamUtils(Array(classOf[WeixinConfig], classOf[WeixinAppInfo], classOf[TodoConfig], classOf[ProcessConfig], classOf[Process], classOf[Condition]))
+  private val stream = new XStreamUtils(Array(classOf[WeixinConfig], classOf[WeixinAppInfo], classOf[TodoConfig], classOf[ProcessConfig], classOf[Process]))
 
   Logger.info(IOUtils.toString(this.getClass.getResourceAsStream("/api-config.xml")))
 
-  val weixinConfig = stream.fromXmlStream(this.getClass.getResourceAsStream("/api-config.xml"), classOf[WeixinConfig])
+  lazy val weixinConfig = stream.fromXmlStream(this.getClass.getResourceAsStream("/api-config.xml"), classOf[WeixinConfig])
 
 }
