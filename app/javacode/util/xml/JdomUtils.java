@@ -43,22 +43,22 @@ public class JdomUtils {
         T t = clazz.newInstance();
         Field[] fields = null;
         Class parent = clazz.getSuperclass();
-        if(parent!=null){
+        if (parent != null) {
             fields = parent.getDeclaredFields();
-            t = wrapObject(root,fields,clazz,t);
+            t = wrapObject(root, fields, clazz, t);
         }
         fields = clazz.getDeclaredFields();
-        t = wrapObject(root,fields,clazz,t);
+        t = wrapObject(root, fields, clazz, t);
         return t;
     }
 
-    private <T> T wrapObject(Element root,Field[] fields, Class<T> clazz, T t) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    private <T> T wrapObject(Element root, Field[] fields, Class<T> clazz, T t) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         Method method = null;
         Element temp = null;
         for (Field field : fields) {
             temp = root.getChild(field.getName());
             if (temp != null) {
-                method = ClassUtils.getMethod(setMethodName(field.getName()), clazz, String.class);
+                method = ClassUtils.getMethod(ClassUtils.getMethodName(field.getName()), clazz, String.class);
                 method.invoke(t, temp.getTextTrim());
             }
         }
@@ -66,7 +66,4 @@ public class JdomUtils {
     }
 
 
-    private String setMethodName(String field) {
-        return "set" + field.substring(0, 1).toUpperCase() + field.substring(1, field.length());
-    }
 }

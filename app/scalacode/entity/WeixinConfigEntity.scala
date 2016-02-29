@@ -20,15 +20,17 @@ class WeixinAppInfo {
   @BeanProperty var token: String = ""
 }
 
-@XStreamAlias("condition")
-class Condition {
-  @BeanProperty var name: String = ""
-  @BeanProperty var value: String = ""
-}
-
 @XStreamAlias("todoConfig")
 class TodoConfig {
-  @BeanProperty var xmlClass: String = ""
+  @BeanProperty var conditionField:String = ""
+  @BeanProperty var conditionValue: String = ""
+  @BeanProperty var entityClass: String = ""
+  @BeanProperty var processClass: String = ""
+  @BeanProperty var processMethod: String = ""
+
+  override def toString(): String = {
+    "conditionField="+conditionField+",conditionValue=" + conditionValue + ",entityClass=" + entityClass + ",processClass=" + processClass + ",processMethod=" + processMethod
+  }
 }
 
 @XStreamAlias("process")
@@ -38,8 +40,12 @@ class Process {
   @BeanProperty
   @XStreamAsAttribute var desc: String = ""
 
-  @BeanProperty var conditions: Array[Condition] = Array[Condition]()
-  @BeanProperty var todoConfig: TodoConfig = null
+  @XStreamImplicit(itemFieldName = "todoConfig")
+  @BeanProperty var todoConfig: Array[TodoConfig] = Array[TodoConfig]()
+
+  override def toString(): String = {
+    "msgType=" + msgType + ",desc=" + desc +  ",todoConfig=" + todoConfig
+  }
 }
 
 @XStreamAlias("processConfig")

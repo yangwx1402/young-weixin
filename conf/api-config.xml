@@ -7,15 +7,21 @@
     </appInfo>
     <processConfig>
         <process msgType="event" desc="处理用户关注事件">
-            <conditions>
-                <condition>
-                    <name>Event</name>
-                    <value>subscribe</value>
-                </condition>
-            </conditions>
             <todoConfig>
-                <xmlClass></xmlClass>
+                <conditionField>Event</conditionField>
+                <conditionValue>subscribe</conditionValue>
+                <entityClass>scalacode.entity.SubscribeEvent</entityClass>
+                <processClass>scalacode.service.WeixinEventService</processClass>
+                <processMethod>processSubscribeEvent</processMethod>
+            </todoConfig>
+            <todoConfig>
+                <conditionField>Event</conditionField>
+                <conditionValue>unsubscribe</conditionValue>
+                <entityClass>scalacode.entity.SubscribeEvent</entityClass>
+                <processClass>scalacode.service.WeixinEventService</processClass>
+                <processMethod>processSubscribeEvent</processMethod>
             </todoConfig>
         </process>
+
     </processConfig>
 </weixin>
