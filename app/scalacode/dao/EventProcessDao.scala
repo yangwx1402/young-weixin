@@ -11,9 +11,7 @@ import scalacode.entity.SubscribeEvent
 /**
  * Created by Administrator on 2016/2/23.
  */
-object EventProcessDao {
-
-  val defaultDateFormat = "yyyy-MM-dd HH:mm:ss"
+object EventProcessDao extends BaseDao{
 
   def saveUserSubscribe(subscribeEvent: SubscribeEvent): Unit = {
     DB.withConnection { connection =>
