@@ -11,8 +11,6 @@ import scalacode.service.WeixinDispatcherService
  */
 object WeixinMessageController extends Controller {
 
-  override val ACCEPT_CHARSET = "utf-8"
-
   val weixinService = new WeixinDispatcherService
 
   def checkToken(signature: String, timestamp: String, nonce: String, echostr: String) = Action {
@@ -25,6 +23,8 @@ object WeixinMessageController extends Controller {
   }
 
   def processWeixinMessage = Action(parse.tolerantText) { request =>
+    request.
+    Logger.info("request charset is -["+request.charset.get+"]")
     val xmlContent = if (request.body.isEmpty) "" else request.body
     Logger.info("receive weixin Server content=[  " + xmlContent + "   ]")
     val response = weixinService.dispatchMessage(xmlContent)

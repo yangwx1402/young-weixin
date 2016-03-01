@@ -15,7 +15,7 @@ object TextMessageSender {
     message.CreateTime="createTime"
     message.FromUserName = "oGDhoxAIC7rBZiFr8YpF0gww6L0c"
     message.ToUserName = "toUserName"
-    message.Content="test"
+    message.Content="哈哈"
     message.MsgType = "text"
     val url = "http://localhost/weixin/message"
     val http = new HttpUtils
