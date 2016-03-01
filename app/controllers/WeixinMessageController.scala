@@ -2,6 +2,7 @@ package controllers
 
 import play.api.Logger
 import play.api.mvc.{Action, Controller}
+import play.utils.UriEncoding
 
 import scalacode.entity.CheckDevelopMessage
 import scalacode.service.WeixinDispatcherService
