@@ -23,7 +23,7 @@
             </todoConfig>
         </process>
 
-        <process msgType="text" desc="处理用户关注事件">
+        <process msgType="text" desc="处理用户文本消息">
             <todoConfig>
                 <entityClass>scalacode.entity.TextMessage</entityClass>
                 <processClass>scalacode.service.WeixinMessageService</processClass>

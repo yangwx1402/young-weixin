@@ -19,6 +19,7 @@ object TextMessageSender {
     message.MsgType = "text"
     val url = "http://localhost/weixin/message"
     val http = new HttpUtils
-    http.sendPostRequest(url,HttpMethod.POST,xml.toXml(message))
+    val response = http.sendPostRequest(url,HttpMethod.POST,xml.toXml(message))
+    println(response.getContent)
   }
 }

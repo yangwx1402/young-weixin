@@ -5,12 +5,13 @@ import play.api.mvc.{Action, Controller}
 
 import scalacode.entity.CheckDevelopMessage
 import scalacode.service.WeixinDispatcherService
-import scalacode.util.CheckUtils
 
 /**
  * Created by Administrator on 2016/2/20.
  */
 object WeixinMessageController extends Controller {
+
+  override val ACCEPT_CHARSET = "utf-8"
 
   val weixinService = new WeixinDispatcherService
 
