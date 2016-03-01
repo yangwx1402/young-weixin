@@ -30,6 +30,53 @@
                 <processMethod>processTextMessage</processMethod>
             </todoConfig>
         </process>
+        <process msgType="image" desc="处理用户图片消息">
+            <todoConfig>
+                <entityClass>scalacode.entity.ImageMessage</entityClass>
+                <processClass>scalacode.service.WeixinMessageService</processClass>
+                <processMethod>processImageMessage</processMethod>
+            </todoConfig>
+        </process>
+
+        <process msgType="voice" desc="处理用户语音消息">
+            <todoConfig>
+                <entityClass>scalacode.entity.VoiceMessage</entityClass>
+                <processClass>scalacode.service.WeixinMessageService</processClass>
+                <processMethod>processVoiceMessage</processMethod>
+            </todoConfig>
+        </process>
+
+        <process msgType="video" desc="处理用户视频消息">
+            <todoConfig>
+                <entityClass>scalacode.entity.VideoMessage</entityClass>
+                <processClass>scalacode.service.WeixinMessageService</processClass>
+                <processMethod>processVideoMessage</processMethod>
+            </todoConfig>
+        </process>
+
+        <process msgType="shortvideo" desc="处理用户短视频消息">
+            <todoConfig>
+                <entityClass>scalacode.entity.VideoMessage</entityClass>
+                <processClass>scalacode.service.WeixinMessageService</processClass>
+                <processMethod>processVideoMessage</processMethod>
+            </todoConfig>
+        </process>
+
+        <process msgType="location" desc="处理用户地理位置消息">
+            <todoConfig>
+                <entityClass>scalacode.entity.PositionMessage</entityClass>
+                <processClass>scalacode.service.WeixinMessageService</processClass>
+                <processMethod>processPositionMessage</processMethod>
+            </todoConfig>
+        </process>
+
+        <process msgType="link" desc="处理用户链接消息">
+            <todoConfig>
+                <entityClass>scalacode.entity.LinkMessage</entityClass>
+                <processClass>scalacode.service.WeixinMessageService</processClass>
+                <processMethod>processLinkMessage</processMethod>
+            </todoConfig>
+        </process>
 
     </processConfig>
 </weixin>
