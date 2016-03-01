@@ -24,9 +24,10 @@ object WeixinMessageController extends Controller {
   }
 
   def processWeixinMessage = Action(parse.tolerantText) { request =>
-    val xmlContent = if(request.body.isEmpty) "" else request.body
+    val xmlContent = if (request.body.isEmpty) "" else request.body
     Logger.info("receive weixin Server content=[  " + xmlContent + "   ]")
-    weixinService.dispatchMessage(xmlContent)
-    Ok("success")
+    val response = weixinService.dispatchMessage(xmlContent)
+    Logger.info("response weixin Server content=[" + response + "]")
+    Ok(response)
   }
 }

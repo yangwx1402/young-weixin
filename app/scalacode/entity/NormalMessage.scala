@@ -40,6 +40,7 @@ import scala.beans.BeanProperty
 /**
  * 微信消息基类
  */
+@XStreamAlias("xml")
 class NormalMessage {
   @BeanProperty var ToUserName: String = ""
   @BeanProperty var FromUserName: String = ""
@@ -55,6 +56,7 @@ class NormalMessage {
 /**
  * 文本消息
  */
+@XStreamAlias("xml")
 class TextMessage extends NormalMessage {
   @BeanProperty var Content: String = ""
 
@@ -66,6 +68,7 @@ class TextMessage extends NormalMessage {
 /**
  * 图片消息
  */
+@XStreamAlias("xml")
 class ImageMessage extends NormalMessage {
   @BeanProperty var PicUrl: String = ""
   @BeanProperty var MediaId: String = ""
@@ -77,6 +80,7 @@ class ImageMessage extends NormalMessage {
 /**
  * 声音消息
  */
+@XStreamAlias("xml")
 class VoiceMessage extends NormalMessage {
   @BeanProperty var MediaId: String = ""
   @BeanProperty var Format: String = ""
@@ -88,6 +92,7 @@ class VoiceMessage extends NormalMessage {
 /**
  * 视频和短视频消息
  */
+@XStreamAlias("xml")
 class VideoMessage extends NormalMessage {
   @BeanProperty var MediaId: String = ""
   @BeanProperty var ThumbMediaId: String = ""
@@ -99,6 +104,7 @@ class VideoMessage extends NormalMessage {
 /**
  * 位置信息消息
  */
+@XStreamAlias("xml")
 class PositionMessage extends NormalMessage {
   @BeanProperty var Location_X: String = ""
   @BeanProperty var Location_Y: String = ""
@@ -113,6 +119,7 @@ class PositionMessage extends NormalMessage {
 /**
  * 链接消息
  */
+@XStreamAlias("xml")
 class LinkMessage extends NormalMessage{
   @BeanProperty var Title:String =""
   @BeanProperty var Description:String = ""

@@ -1,8 +1,8 @@
 package scalacode.service
 
-import javacode.util.xml.JdomUtils
+import javacode.util.xml.{XStreamUtils, JdomUtils}
 
-import scalacode.entity.{WeixinConfigFactory, CheckDevelopMessage}
+import scalacode.entity.{TextMessage, WeixinConfigFactory, CheckDevelopMessage}
 import scalacode.util.CheckUtils
 
 /**
@@ -10,6 +10,8 @@ import scalacode.util.CheckUtils
  */
 trait BaseSerivce {
   val jdom = new JdomUtils
+
+  val xml = new XStreamUtils(Array(classOf[TextMessage]))
 
   def checkToken(checkDevelopMessage: CheckDevelopMessage): Boolean = {
     CheckUtils.checkSignature(WeixinConfigFactory.weixinConfig.appInfo.token, checkDevelopMessage)
