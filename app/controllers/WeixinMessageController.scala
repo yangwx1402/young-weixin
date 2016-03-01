@@ -13,6 +13,8 @@ object WeixinMessageController extends Controller {
 
   override val ACCEPT_CHARSET = "utf-8"
 
+  override val ACCEPT_ENCODING = "utf-8"
+
   val weixinService = new WeixinDispatcherService
 
   def checkToken(signature: String, timestamp: String, nonce: String, echostr: String) = Action {
