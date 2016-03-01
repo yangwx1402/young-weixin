@@ -23,7 +23,6 @@ object WeixinMessageController extends Controller {
   }
 
   def processWeixinMessage = Action(parse.tolerantText) { request =>
-    request.
     Logger.info("request charset is -["+request.charset.get+"]")
     val xmlContent = if (request.body.isEmpty) "" else request.body
     Logger.info("receive weixin Server content=[  " + xmlContent + "   ]")
