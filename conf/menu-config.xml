@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+    <clickbuttons>
+        <clickbutton type="click" name="开源中国" key="oschina" order="2"/>
+        <clickbutton type="click" name="开源中国" key="oschina" order="4"/>
+    </clickbuttons>
+    <viewbuttons>
+        <viewbutton type="view" name="CocoaChina" url="http://www.iteye.com" order="3"/>
+        <viewbutton type="view" name="CocoaChina" url="http://www.iteye.com" order="5"/>
+    </viewbuttons>
+    <complexbuttons>
+        <complexbutton name="购物" order="1">
+            <clickbuttons>
+                <clickbutton type="click" name="ITeye" key="iteye" order="1"/>
+            </clickbuttons>
+            <viewbuttons>
+                <viewbutton type="view" name="淘宝" url="http://m.taobao.com" order="2"/>
+            </viewbuttons>
+        </complexbutton>
+    </complexbuttons>
+</menu>
