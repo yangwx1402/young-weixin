@@ -81,7 +81,7 @@ class WeixinDispatcherService extends BaseSerivce {
       if(obj==null){
         WeixinConstants.MSG_NO_CONTENT
       }else{
-        xml.toXml(obj)
+        obj.toString
       }
     }else{
       WeixinConstants.MSG_NO_CONTENT

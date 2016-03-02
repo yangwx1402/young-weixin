@@ -1,5 +1,7 @@
 package scalacode.service
 
+import javacode.util.xml.{XStreamFactory, XStreamUtils}
+
 import scalacode.dao.MessageProcessDao
 import scalacode.entity._
 
@@ -8,7 +10,7 @@ import scalacode.entity._
  */
 class WeixinMessageService {
 
-  def processTextMessage(textMessage: TextMessage): TextMessage = {
+  def processTextMessage(textMessage: TextMessage): String = {
     MessageProcessDao.saveTextMessage(textMessage)
     val responseMessage = new TextMessage
     responseMessage.Content = "thank you send message to me"
@@ -16,7 +18,8 @@ class WeixinMessageService {
     responseMessage.ToUserName = textMessage.FromUserName
     responseMessage.MsgType = "text"
     responseMessage.CreateTime = System.currentTimeMillis() + ""
-    responseMessage
+    val xml = XStreamFactory.getInstance(Array(classOf[TextMessage]))
+    xml.toXml(responseMessage)
   }
 
   def processVideoMessage(videoMessage: VideoMessage): Unit = {

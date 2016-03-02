@@ -7,8 +7,7 @@ import scala.beans.BeanProperty
 /**
  * Created by Administrator on 2016/3/1.
  */
-@XStreamAlias("xml")
-class ResponseMessage {
+abstract class ResponseMessage {
   @BeanProperty var ToUserName: String = ""
   @BeanProperty var FromUserName: String = ""
   @BeanProperty var CreateTime: String = ""
@@ -73,7 +72,6 @@ class MusicResponseMessageMusic {
 @XStreamAlias("xml")
 class ImageContentResponseMessage extends ResponseMessage {
   @BeanProperty var ArticleCount: String = ""
-  @XStreamImplicit(itemFieldName = "item")
   @BeanProperty var Articles: Array[ImageContentResponseMessageArticleItem] = Array[ImageContentResponseMessageArticleItem]()
 }
 

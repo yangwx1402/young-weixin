@@ -1,6 +1,6 @@
 package scalacode.entity
 
-import javacode.util.xml.XStreamUtils
+import javacode.util.xml.XStreamFactory
 
 import org.apache.commons.io.IOUtils
 import play.Logger
@@ -10,7 +10,7 @@ import play.Logger
  */
 object WeixinConfigFactory {
 
-  private val stream = new XStreamUtils(Array(classOf[WeixinConfig], classOf[WeixinAppInfo], classOf[TodoConfig], classOf[ProcessConfig], classOf[Process]))
+  private val stream = XStreamFactory.getInstance(Array(classOf[WeixinConfig], classOf[WeixinAppInfo], classOf[TodoConfig], classOf[ProcessConfig], classOf[Process]))
 
   Logger.info(IOUtils.toString(this.getClass.getResourceAsStream("/api-config.xml")))
 
