@@ -4,6 +4,7 @@ import java.io.StringReader
 import javacode.util.clazz.ClassUtils
 import javacode.util.xml.JdomUtils
 
+import org.apache.commons.lang3.StringUtils
 import org.jdom2.Element
 import play.Logger
 
@@ -24,12 +25,16 @@ class WeixinDispatcherService extends BaseSerivce {
     var key = ""
     if (WeixinConfigFactory.weixinConfig.getProcessConfig != null && WeixinConfigFactory.weixinConfig.processConfig.process != null && WeixinConfigFactory.weixinConfig.processConfig.process.length > 0) {
       for (process <- WeixinConfigFactory.weixinConfig.processConfig.process) {
-        key = key + process.getMsgType
+        key = process.getMsgType
         val todos = process.todoConfig
         if (todos != null && todos.length > 0) {
           val tempMap = new mutable.HashMap[String, TodoConfig]();
           for (todo <- todos) {
-            tempMap.put(todo.conditionValue, todo)
+            if (StringUtils.isBlank(todo.conditionValue)) {
+              tempMap.put(process.msgType, todo)
+            } else {
+              tempMap.put(todo.conditionValue, todo)
+            }
           }
           tempCache.put(key, tempMap)
         }
@@ -41,7 +46,13 @@ class WeixinDispatcherService extends BaseSerivce {
 
 
   private def findTodo(root: Element, todoMap: mutable.HashMap[String, TodoConfig]): TodoConfig = {
-    val todo = todoMap.find(p => p._1.equals(jdom.selectField(root, p._2.getConditionField)))
+    val todo = todoMap.find({
+      p => if (StringUtils.isBlank(p._2.conditionField) && StringUtils.isBlank(p._2.conditionValue)) {
+        true
+      } else {
+        p._1.equals(jdom.selectField(root, p._2.getConditionField))
+      }
+    })
     if (todo != None)
       todo.get._2
     else
@@ -58,7 +69,7 @@ class WeixinDispatcherService extends BaseSerivce {
     }
   }
 
-  private def processTodo(root: Element, todoConfig: TodoConfig) = {
+  private def processTodo(root: Element, todoConfig: TodoConfig):String = {
     Logger.info("processTodo ----todoConfig = " + todoConfig)
     if (todoConfig != null) {
       val className = todoConfig.getEntityClass
@@ -66,17 +77,26 @@ class WeixinDispatcherService extends BaseSerivce {
       Logger.info("parser entity is =" + entity)
       val clazz = Class.forName(todoConfig.getProcessClass)
       val method = ClassUtils.getMethod(todoConfig.getProcessMethod, clazz, Class.forName(className))
-      method.invoke(clazz.newInstance(), entity.asInstanceOf[Object])
+      val obj = method.invoke(clazz.newInstance(), entity.asInstanceOf[Object])
+      if(obj==null){
+        WeixinConstants.MSG_NO_CONTENT
+      }else{
+        obj.toString
+      }
+    }else{
+      WeixinConstants.MSG_NO_CONTENT
     }
   }
 
-  def dispatchMessage(xmlContent: String): Unit = {
+  def dispatchMessage(xmlContent: String): String = {
     val root = jdom.getRootElement(new StringReader(xmlContent))
     val msgType = jdom.selectField(root, WeixinConstants.MSG_TYPE_NAME)
     Logger.info("processWeixinMessage msgType=" + msgType)
     val todoConfig = matchTodoConfig(root, msgType)
     if (todoConfig != null) {
       processTodo(root, todoConfig)
+    }else{
+      WeixinConstants.MSG_NO_CONTENT
     }
   }
 }

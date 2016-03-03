@@ -21,6 +21,7 @@ object SubscribeEventSender extends BaseTest{
     event.MsgType = "event"
     val url = "http://localhost/weixin/message"
     val http = new HttpUtils
-    http.sendPostRequest(url,HttpMethod.POST,xml.toXml(event))
+    val result = http.sendPostRequest(url,HttpMethod.POST,xml.toXml(event))
+    println(result.content)
   }
 }

@@ -2,15 +2,19 @@ package controllers
 
 import play.api.Logger
 import play.api.mvc.{Action, Controller}
+import play.utils.UriEncoding
 
 import scalacode.entity.CheckDevelopMessage
 import scalacode.service.WeixinDispatcherService
-import scalacode.util.CheckUtils
 
 /**
  * Created by Administrator on 2016/2/20.
  */
 object WeixinMessageController extends Controller {
+
+  override val ACCEPT_CHARSET = "utf-8"
+
+  override val ACCEPT_ENCODING = "utf-8"
 
   val weixinService = new WeixinDispatcherService
 
@@ -24,9 +28,11 @@ object WeixinMessageController extends Controller {
   }
 
   def processWeixinMessage = Action(parse.tolerantText) { request =>
-    val xmlContent = if(request.body.isEmpty) "" else request.body
+    Logger.info("request charset is -[" + (if (request.charset == None) request.charset else request.charset.get) + "]")
+    val xmlContent = if (request.body.isEmpty) "" else request.body
     Logger.info("receive weixin Server content=[  " + xmlContent + "   ]")
-    weixinService.dispatchMessage(xmlContent)
-    Ok("success")
+    val response = weixinService.dispatchMessage(xmlContent)
+    Logger.info("response weixin Server content=[" + response + "]")
+    Ok(response)
   }
 }
