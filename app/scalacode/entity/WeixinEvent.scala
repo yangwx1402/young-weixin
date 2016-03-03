@@ -21,17 +21,30 @@ class WeixinEvent{
 }
 
 @XStreamAlias("xml")
-class SubscribeEvent extends WeixinEvent{
-  @BeanProperty var EventKey:String = ""
-  @BeanProperty var Ticket:String = ""
+class SubscribeEvent extends WeixinEvent {
+  @BeanProperty var EventKey: String = ""
+  @BeanProperty var Ticket: String = ""
 
-  override def toString():String={
-    super.toString()+",EventKey="+EventKey+",Ticket="+Ticket
+  override def toString(): String = {
+    super.toString() + ",EventKey=" + EventKey + ",Ticket=" + Ticket
   }
 }
 
+  @XStreamAlias("xml")
+  class ClickOrViewMenuEvent extends WeixinEvent{
+    @BeanProperty var EventKey:String = ""
+    override def toString(): String = {
+      super.toString() + ",EventKey=" + EventKey
+    }
+  }
 
+  @XStreamAlias("xml")
+  class ReportPositionEvent extends WeixinEvent{
+    @BeanProperty var Latitude:String = ""
+    @BeanProperty var Longitude:String = ""
+    @BeanProperty var Precision:String = ""
 
-
-
-
+    override def toString(): String = {
+      super.toString() + ",Latitude=" + Latitude+",Longitude="+Longitude+",Precision="+Precision
+    }
+  }

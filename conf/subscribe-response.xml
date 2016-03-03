@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+    <ToUserName>toUser</ToUserName>
+    <FromUserName>fromUser</FromUserName>
+    <CreateTime>12345678</CreateTime>
+    <MsgType>news</MsgType>
+    <ArticleCount>5</ArticleCount>
+    <Articles>
+        <item>
+            <Title>新浪网</Title>
+            <Description>新浪网的链接地址</Description>
+            <PicUrl></PicUrl>
+            <Url>http://www.sina.com.cn</Url>
+        </item>
+        <item>
+            <Title>百度网</Title>
+            <Description>百度网的链接地址</Description>
+            <PicUrl></PicUrl>
+            <Url>http://www.baidu.com</Url>
+        </item>
+        <item>
+            <Title>京东网</Title>
+            <Description>京东网的链接地址</Description>
+            <PicUrl></PicUrl>
+            <Url>http://www.jd.com</Url>
+        </item>
+        <item>
+            <Title>搜狐网</Title>
+            <Description>搜狐网的链接地址</Description>
+            <PicUrl></PicUrl>
+            <Url>http://www.sohu.com</Url>
+        </item>
+        <item>
+            <Title>网易</Title>
+            <Description>网易网的链接地址</Description>
+            <PicUrl></PicUrl>
+            <Url>http://www.163.com</Url>
+        </item>
+    </Articles>
+</xml>

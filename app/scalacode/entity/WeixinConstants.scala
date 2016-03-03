@@ -17,6 +17,7 @@ object WeixinConstants {
 
   val MSG_TYPE_EVENT_UNSUBSCRIBE = "unsubscribe"
 
+  val MSG_NO_CONTENT = "success"
 
 
 }
