@@ -6,7 +6,7 @@
     </clickbuttons>
     <viewbuttons>
         <viewbutton type="view" name="CocoaChina" url="http://www.iteye.com" order="3"/>
-        <viewbutton type="view" name="CocoaChina" url="http://www.iteye.com" order="5"/>
+        <viewbutton type="view" name="CocoaChina2" url="http://www.iteye.com2" order="5"/>
     </viewbuttons>
     <complexbuttons>
         <complexbutton name="购物" order="1">
