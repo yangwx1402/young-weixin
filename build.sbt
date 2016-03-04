@@ -22,7 +22,6 @@ libraryDependencies ++= {
     "org.jdom" % "jdom" % "2.0.2",
     "commons-codec" % "commons-codec" % "1.10",
     "commons-collections" % "commons-collections" % "3.2.1"
-
   )
 }
 
