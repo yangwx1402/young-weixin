@@ -3,7 +3,6 @@ package javacode.service;
 import javacode.entity.Token;
 import javacode.entity.jsonentity.Menu;
 import javacode.entity.xmlentity.*;
-import javacode.util.https.CommonUtil;
 import javacode.util.javacode.AssembleMenu;
 import javacode.util.xml.XStreamUtils;
 
@@ -28,7 +27,7 @@ public class CustomMenu {
         String appSecret = "7489b5604771c16e43f299780b3999cc";
 
         // 调用接口获取凭证
-        Token token = CommonUtil.getToken(appId, appSecret);
-        System.out.println("*************token="+token.getAccessToken());
+        //Token token = CommonUtil.getToken(appId, appSecret);
+       // System.out.println("*************token="+token.getAccessToken());
     }
 }
